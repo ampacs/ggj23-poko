@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Island_manager : MonoBehaviour
 {
@@ -25,8 +26,14 @@ public class Island_manager : MonoBehaviour
     public int HowManyTrees; // 1~5? //Is it just go up same as howBigTree?
     
     public int SizeOfIsland; // 1 ~ 5, The more points, the bigger size // == HowManyTrees??
+    //SizeOfIsland = HowManyTrees = HowBigTree?
+    
+    bool restart;
 
-
+    void Awake() {
+        //DontDestroyOnLoad(this.gameObject);
+        restart = false;
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -52,9 +59,13 @@ public class Island_manager : MonoBehaviour
                 gameover();
             }
         }
-
+        // if (Input.GetKeyDown(KeyCode.R) && !restart) {
+        //     restart = true;  
+        //     SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        //     Debug.Log("Game Reset");
+        // }
         
-       //getDamaged(1.01f); // Just for debug
+       getDamaged(0.101f); // Just for debug
     }
 
     private void FixedUpdate() {
@@ -68,7 +79,7 @@ public class Island_manager : MonoBehaviour
             if(Health <=0){
                 gameover();
             }
-            Debug.Log("Time: "+((int)variableToChange).ToString());
+            //Debug.Log("Time: "+((int)variableToChange).ToString());
 
         }
     }
@@ -77,8 +88,9 @@ public class Island_manager : MonoBehaviour
         Debug.Log("Game Over");
 
         //Reset the game
-        Health = 100;
-
+        //Health = 100;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        Debug.Log("Game Reset");
     }
     
     private float ChangePoint(float deltaPoint){
