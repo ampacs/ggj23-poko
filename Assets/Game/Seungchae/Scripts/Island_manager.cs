@@ -19,11 +19,15 @@ public class Island_manager : MonoBehaviour
     
     // Game Objects that changes over time
     public GameObject Island_main;
+    public GameObject[] Islands_New;
     public GameObject[] TreeLocations;
     public GameObject pref_smallTree;
 
     // Changing values such as health, points
-    public float Health;
+    public float Health_MainTree; //Main tree's Health
+    private float Health_SmallTrees; //Small tree's Health
+    private float[] Intensity_BetweenIslands; // When it reaches '0' the connection will be gone. AreTheyConnected[i] will be false; 
+    private bool[] AreTheyConnected; //If they're, it's true. When it becomes true, Intensity_BetweenIslands get 100.
     public float Points; //Time & HowBitTree Get 1 point per second. But if you get level 2, 1 +0.1 * HowBigTree;
 
     //Point Mechanism (Time + How big + how many trees )
@@ -48,7 +52,7 @@ public class Island_manager : MonoBehaviour
         //controller = gameObject.AddComponent<CharacterController>();
 
         changePerSecond = 1f; 
-        Health = 100;
+        Health_MainTree = 100;
         useFixedUpdate = true;
         HowBigTree = 0;
         HowManyTrees = 1;
@@ -64,7 +68,7 @@ public class Island_manager : MonoBehaviour
             //indicator = variableToChange.ToString();
             Debug.Log(variableToChange);
             //Debug.Log(Time.deltaTime);
-            if(Health <=0){
+            if(Health_MainTree <=0){
                 gameover();
             }
         }
@@ -90,7 +94,7 @@ public class Island_manager : MonoBehaviour
             //Point Mechanism (Time + How big + how many trees )
             ChangePoint(changePerSecond+0.1f * HowBigTree + 0.1f*HowManyTrees);
 
-            if(Health <=0){
+            if(Health_MainTree <=0){
                 gameover();
             }
             //Debug.Log("Time: "+((int)variableToChange).ToString());
@@ -129,8 +133,8 @@ public class Island_manager : MonoBehaviour
     }
 
     private void getDamaged(float Damage){
-        Health -= Damage;
-        Debug.Log("Health: "+Health.ToString());
+        Health_MainTree -= Damage;
+        Debug.Log("Health: "+Health_MainTree.ToString());
 
     }
 
@@ -165,7 +169,10 @@ public class Island_manager : MonoBehaviour
             //pref_smallTree.
             // Instantiate at position (0, 0, 0) and zero rotation.
             // Instantiate(pref_smallTree, new Vector3(0, 0, 0), Quaternion.identity);
-            GameObject newTree = Instantiate(pref_smallTree, TreeLocations[HowManyTrees-1].transform.position, Quaternion.identity) as GameObject; 
+            Vector3 currentEulerAngles = new Vector3(0, 0, 0);
+            Quaternion currentRotation  = Quaternion.identity;
+            currentRotation.eulerAngles = currentEulerAngles;
+            GameObject newTree = Instantiate(pref_smallTree, TreeLocations[HowManyTrees-1].transform.position, currentRotation) as GameObject; 
             newTree.transform.parent = GameObject.Find("Trees_new").transform;
 
             HowManyTrees++;
