@@ -1,10 +1,8 @@
 {
-  "7ec7ab44f75fde14ebd83266ea93c509": "Assets/Game/andre/EndScene.unity",
-  "cdfeddd261acb0643a1e4b8a985805f1": "Assets/Game/andre/StartScene.unity",
   "2cda990e2423bbf4892e6590ba056729": "Assets/Game/Scenes/SampleScene.unity",
   "4b65a37f42ade9f4bba55b71e4e6a95e": "Assets/Game/Seungchae/Scenes/GamePlay.unity",
   "674c92c541c5b1942a36085fb04123fa": "Assets/SeungHyeon/Scenes/MainMenu.unity",
-  "83c2bd0896f868341bf9f52b10386a66": "Assets/SeungHyeon/Scenes/PauseMenu.unity",
+  "b1a45e722fe09254896c4232e0b259f1": "Assets/SeungHyeon/Scenes/PauseMenu.unity",
   "964f31b592e4bf64389601d15532169a": "Assets/SeungHyeon/Scenes/SampleScene.unity",
   "2ac8cf212df6445e8aebbe3cb832e993": "Assets/TextMesh Pro/Examples & Extras/Scenes/01-  Single Line TextMesh Pro.unity",
   "251716609f634449bfe8ce75c0ed78fe": "Assets/TextMesh Pro/Examples & Extras/Scenes/02 - Multi-line TextMesh Pro.unity",
