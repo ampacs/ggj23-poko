@@ -51,7 +51,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 200
+  m_Radius: 75
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8042450785042327191
 GameObject:
@@ -115,7 +115,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   template: {fileID: 985633292534358444, guid: 1d77c4bf86871a546b96044839f93cee, type: 3}
-  spawnDistance: 150
+  spawnDistance: 60
 --- !u!114 &8042450785042327179
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -128,8 +128,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0765ce42c87243c8b15ee69f8257fefd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  displacementMultiplier: 35
-  spawnDistanceMultiplier: 150
+  displacementMultiplier: 25
+  spawnDistanceMultiplier: 60
   hazardIslandTemplate: {fileID: 488537278195664296, guid: 2d5c30a39693fbe42b69aca9ad47c22c, type: 3}
 --- !u!114 &2306306169272596318
 MonoBehaviour:
@@ -143,6 +143,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0765ce42c87243c8b15ee69f8257fefd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  displacementMultiplier: 35
-  spawnDistanceMultiplier: 150
+  displacementMultiplier: 25
+  spawnDistanceMultiplier: 60
   hazardIslandTemplate: {fileID: 488537278195664296, guid: e40c8da270cc7644a8e72e578804994c, type: 3}
