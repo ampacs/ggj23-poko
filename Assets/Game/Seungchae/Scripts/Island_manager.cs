@@ -112,8 +112,8 @@ public class Island_manager : MonoBehaviour
 
         //Reset the game
         //Health = 100;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         Debug.Log("Game Reset");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     
     public  float ChangePoint(float deltaPoint){
