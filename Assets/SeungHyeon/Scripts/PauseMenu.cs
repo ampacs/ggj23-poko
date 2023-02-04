@@ -9,10 +9,12 @@ public class PauseMenu : MonoBehaviour
 {
     public static bool GameIsPaused = false;
     public GameObject pauseMenuPanel;
+    public GameObject optionPanel;
 
     private void Awake()
     {
         pauseMenuPanel.SetActive(false);
+        optionPanel.SetActive(false);
     }
 
     // Update is called once per frame
@@ -38,7 +40,9 @@ public class PauseMenu : MonoBehaviour
 
     public void Option()
     {
-        Debug.Log("It's not implemented yet.");
+        optionPanel.SetActive(true);
+        Time.timeScale = 0f;
+        GameIsPaused = true;
     }
 
     public void Resume()
