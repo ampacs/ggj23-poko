@@ -40,7 +40,7 @@ public class PauseMenu : MonoBehaviour
         SceneManager.LoadScene("GamePlay");
     }
 
-    public void OK()
+    public void goBack()
     {
         Time.timeScale = 1.0f;
         optionPanel.SetActive(false);

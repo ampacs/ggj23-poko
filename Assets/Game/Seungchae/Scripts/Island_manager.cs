@@ -93,6 +93,7 @@ public class Island_manager : MonoBehaviour
 
             //Point Mechanism (Time + How big + how many trees )
             ChangePoint(changePerSecond+0.1f * HowBigTree + 0.1f*HowManyTrees);
+           
 
             if(Health_MainTree <=0){
                 gameover();
