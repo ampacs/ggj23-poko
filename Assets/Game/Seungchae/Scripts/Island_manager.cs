@@ -13,7 +13,8 @@ public class Island_manager : MonoBehaviour
     public bool useFixedUpdate;
     public float variableToChange;
     public float changePerSecond;
-
+    private float GettingPointForNext=0;
+    private float HasTimePassedEnough=0;
     
     
     // Game Objects that changes over time
@@ -22,10 +23,14 @@ public class Island_manager : MonoBehaviour
     // Changing values such as health, points
     public float Health;
     public float Points; //Time & HowBitTree Get 1 point per second. But if you get level 2, 1 +0.1 * HowBigTree;
+
+    //Point Mechanism (Time + How big + how many trees )
     public int HowBigTree; // basically level? 1 to 5?
     public int HowManyTrees; // 1~5? //Is it just go up same as howBigTree?
+    private int MaxTree = 10; // = 10 * Level or SizeOfIsland
     
     public int SizeOfIsland; // 1 ~ 5, The more points, the bigger size // == HowManyTrees??
+    private int Level=1;
     //SizeOfIsland = HowManyTrees = HowBigTree?
     
     bool restart;
@@ -43,6 +48,7 @@ public class Island_manager : MonoBehaviour
         Health = 100;
         useFixedUpdate = true;
         HowBigTree = 0;
+        HowManyTrees = 1;
         SizeOfIsland = 1;
     }
 
@@ -66,21 +72,31 @@ public class Island_manager : MonoBehaviour
         // }
         
        getDamaged(0.101f); // Just for debug
+
+       //if(merged island) ++Level;? ++SizeOfIsland?
+       //SizeUpIsland();
     }
 
     private void FixedUpdate() {
         if(useFixedUpdate){
             variableToChange+= changePerSecond*Time.deltaTime;
+            HasTimePassedEnough += changePerSecond*Time.deltaTime;
             //Debug.Log("Time: "+((int)variableToChange).ToString());
             //Debug.Log(Time.deltaTime);
 
-            ChangePoint(changePerSecond+0.1f * HowBigTree);
+            //Point Mechanism (Time + How big + how many trees )
+            ChangePoint(changePerSecond+0.1f * HowBigTree + 0.1f*HowManyTrees);
 
             if(Health <=0){
                 gameover();
             }
             //Debug.Log("Time: "+((int)variableToChange).ToString());
+            if(HasTimePassedEnough>10) // every 10 second you will get a new tree until you meet the max
+            {
+                HowManyTrees++;
 
+                HasTimePassedEnough = 0;
+            }
         }
     }
 
@@ -95,6 +111,14 @@ public class Island_manager : MonoBehaviour
     
     private float ChangePoint(float deltaPoint){
         Points =Points+deltaPoint;
+        GettingPointForNext = GettingPointForNext+deltaPoint;
+
+
+        //When you get another 300 point, the next Island will show up.
+        if(GettingPointForNext > 300){ 
+            showupNextIsland();
+            GettingPointForNext =0;
+        }
         //Debug.Log("Point: "+Points.ToString());
         SizeUpIsland();
         return Points;
@@ -108,32 +132,23 @@ public class Island_manager : MonoBehaviour
 
     private void SizeUpIsland(){
         /*
-            Size 1: Point 0 ~ 100 
-            Size 2: Point 101 ~ 300
-            Size 3: Point 301 ~ 800
-            Size 4: Point 801 ~ 1500
-            Size 5: Point 1501 ~ 
+            Size 1: first
+            Size 2: Merge 1
+            Size 3: Merge 2
+            Size 4: Merge 3
+            Size 5: Merge 4
         */
-        if(Points>=101 && Points <=300)
-        {
-            SizeOfIsland = 2;
-            Debug.Log("Level Up: 2 ");
-        }
-        else if(Points>=301 && Points <=800)
-        {
-            SizeOfIsland = 3;
-            Debug.Log("Level Up: 3 ");
-        }
-        else if(Points>=801 && Points <=1500)
-        {
-            SizeOfIsland = 4;
-            Debug.Log("Level Up: 4 ");
-        }
-        else if(Points>=1501)
-        {
-            SizeOfIsland = 5;
-            Debug.Log("Level Up: 5 ");
-        }
+        SizeOfIsland++;
+        MaxTree = 10 * SizeOfIsland;
+        Debug.Log("SizeOfIsland: "+SizeOfIsland.ToString());
+        Debug.Log("MaxTree: "+MaxTree.ToString());
+
+    }
+
+    private void showupNextIsland()
+    {   
+        // if you merge islands you will get level up.
+        //
     }
 }
 
