@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1590829064791040232}
+  - component: {fileID: 1771405783682347424}
   m_Layer: 0
   m_Name: BigTree
   m_TagString: Untagged
@@ -30,8 +31,25 @@ Transform:
   m_Children:
   - {fileID: 1268180999161398419}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1771405783682347424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1590829064791040233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83e2672fd1294cb3a7c8e77d81002295, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  configurations:
+  - scoreRate: 8
+    minDuration: 20000
+    maxDuration: 20001
+    model: {fileID: 1932795528024301097}
 --- !u!1001 &1590829065228985208
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -96,5 +114,10 @@ PrefabInstance:
 --- !u!4 &1268180999161398419 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b50d0a7b92c9db54d801bcb86062b911, type: 3}
+  m_PrefabInstance: {fileID: 1590829065228985208}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1932795528024301097 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: b50d0a7b92c9db54d801bcb86062b911, type: 3}
   m_PrefabInstance: {fileID: 1590829065228985208}
   m_PrefabAsset: {fileID: 0}
