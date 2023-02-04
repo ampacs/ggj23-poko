@@ -107,7 +107,11 @@ namespace Game.Scenes
                 }
 
                 await UniTask.NextFrame(cancellationToken: token);
-            } while (Mathf.Approximately(previousProgress, operation.progress));
+                if (token.IsCancellationRequested) {
+                    Debug.LogError("Canceled loading of scene");
+                    return;
+                }
+            } while (!Mathf.Approximately(previousProgress, operation.progress));
 
             foreach (ProgressAction action in _onSceneLoadUpdateActions) {
                 await action(scene, 1, token);
