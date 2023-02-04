@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1450105872440959927, guid: d5cccdc73bab24a43ab365076a51a75d, type: 3}
+      propertyPath: isPlayerIsland
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5225593666338083374, guid: d5cccdc73bab24a43ab365076a51a75d, type: 3}
       propertyPath: m_Mass
       value: 10

@@ -14,7 +14,14 @@ namespace Game.Gameplay.Islands
         [SerializeField]
         private float maximumAngularSpeed = 2f;
 
+        [SerializeField]
+        private bool isPlayerIsland;
+
         public Rigidbody Rigidbody { get; private set; }
+
+        [SerializeField]
+        private GameObject[] treesSources;
+        private Trees.Tree[] _trees;
 
         private RootLocation[] _rootLocations = Array.Empty<RootLocation>();
 
@@ -22,10 +29,28 @@ namespace Game.Gameplay.Islands
 
         public bool IsAttached => _attachedIslands.Count > 0;
 
+        public bool IsPlayerIsland => isPlayerIsland;
+
+        public bool IsConnectedToPlayerIsland { get; private set; }
+
         private void Awake()
         {
             Rigidbody = GetComponent<Rigidbody>();
             _rootLocations = GetComponentsInChildren<RootLocation>();
+            List<Trees.Tree> trees = new(treesSources.Length);
+            foreach (GameObject treesSource in treesSources) {
+                Trees.Tree[] childTrees = treesSource.GetComponentsInChildren<Trees.Tree>();
+                trees.AddRange(childTrees);
+            }
+            _trees = trees.ToArray();
+        }
+
+        private void Start ()
+        {
+            if (isPlayerIsland) {
+                IsConnectedToPlayerIsland = true;
+                SetTreesScoringState(true);
+            }
         }
 
         private void FixedUpdate ()
@@ -60,6 +85,44 @@ namespace Game.Gameplay.Islands
         {
             return _attachedIslands.Contains(island);
         }
+        
+        private bool CheckIsConnectedToPlayerIsland ()
+        {
+            if (IsPlayerIsland) {
+                IsConnectedToPlayerIsland = true;
+                SetTreesScoringState(true);
+                return true;
+            }
+
+            List<Island> checkedIslands = new(_attachedIslands.Count);
+            List<Island> islandsToCheck = new(_attachedIslands);
+            while (islandsToCheck.Count > 0) {
+                Island island = islandsToCheck[0];
+                islandsToCheck.RemoveAt(0);
+                if (island.IsPlayerIsland) {
+                    IsConnectedToPlayerIsland = true;
+                    SetTreesScoringState(true);
+                    return true;
+                }
+                checkedIslands.Add(island);
+                for (int i = 0; i < island._attachedIslands.Count; i++) {
+                    Island attachedIsland = island._attachedIslands[i];
+                    if (!checkedIslands.Contains(attachedIsland) && !islandsToCheck.Contains(attachedIsland))
+                        islandsToCheck.Add(attachedIsland);
+                }
+            }
+
+            IsConnectedToPlayerIsland = false;
+            SetTreesScoringState(false);
+
+            return false;
+        }
+
+        private void SetTreesScoringState (bool scoring)
+        {
+            for (int i = 0; i < _trees.Length; i++)
+                _trees[i].Scoring = scoring;
+        }
 
         private void OnRootAttached (Root root)
         {
@@ -69,6 +132,9 @@ namespace Game.Gameplay.Islands
             _attachedIslands.Add(root.Island);
             if (_attachedIslands.Count == 1)
                 OnAttached?.Invoke(root.Island);
+
+            if (!IsConnectedToPlayerIsland)
+                CheckIsConnectedToPlayerIsland();
         }
 
         private void OnRootDetached (Root root)
@@ -79,6 +145,9 @@ namespace Game.Gameplay.Islands
             _attachedIslands.Remove(root.Island);
             if (_attachedIslands.Count == 0)
                 OnDetached?.Invoke(root.Island);
+
+            if (IsConnectedToPlayerIsland)
+                CheckIsConnectedToPlayerIsland();
         }
     }
 }

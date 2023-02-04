@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8757719885750805577}
+  - component: {fileID: 847601474936613004}
   m_Layer: 0
   m_Name: SmallTree
   m_TagString: Untagged
@@ -32,6 +33,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &847601474936613004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8270606936348783208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83e2672fd1294cb3a7c8e77d81002295, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  configurations:
+  - scoreRate: 2
+    minDuration: 20000
+    maxDuration: 21000
+    model: {fileID: 6938411841913361898}
 --- !u!1001 &7821443167312488635
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -54,7 +72,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7c302543090ba824fa33f4905b92d10b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7c302543090ba824fa33f4905b92d10b, type: 3}
       propertyPath: m_LocalRotation.w
@@ -93,6 +111,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7c302543090ba824fa33f4905b92d10b, type: 3}
+--- !u!1 &6938411841913361898 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 7c302543090ba824fa33f4905b92d10b, type: 3}
+  m_PrefabInstance: {fileID: 7821443167312488635}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7710690755193098064 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7c302543090ba824fa33f4905b92d10b, type: 3}
