@@ -5,11 +5,13 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+
 public class PauseMenu : MonoBehaviour
 {
     public static bool GameIsPaused = false;
     public GameObject pauseMenuPanel;
     public GameObject optionPanel;
+    bool isOptionMenu = false;
 
     private void Awake()
     {
@@ -22,7 +24,7 @@ public class PauseMenu : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (GameIsPaused)
+            if (GameIsPaused && isOptionMenu == false)
             {
                 Resume();
             }
@@ -38,11 +40,19 @@ public class PauseMenu : MonoBehaviour
         SceneManager.LoadScene("GamePlay");
     }
 
+    public void OK()
+    {
+        Time.timeScale = 1.0f;
+        optionPanel.SetActive(false);
+        isOptionMenu = false;
+    }
+
     public void Option()
     {
         optionPanel.SetActive(true);
         Time.timeScale = 0f;
         GameIsPaused = true;
+        isOptionMenu = true;
     }
 
     public void Resume()

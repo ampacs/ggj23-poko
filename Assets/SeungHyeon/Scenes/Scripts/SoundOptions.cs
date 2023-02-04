@@ -10,6 +10,14 @@ public class SoundOptions : MonoBehaviour
 
     public Slider BgmSlider;
     public Slider SfxSlider;
+    public Slider GeneralSlider;
+    public Slider QualitySlider;
+
+    public void Update()
+    {
+        int qualityLevel = (int)(QualitySlider.value * QualitySettings.names.Length);
+        QualitySettings.SetQualityLevel(qualityLevel, true);
+            }
 
     public void SetBgmVolume()
     {
@@ -20,5 +28,13 @@ public class SoundOptions : MonoBehaviour
     {
         audioMixer.SetFloat("SFX", Mathf.Log10(SfxSlider.value) * 20);
     }
+    public void SetGeneralVolume()
+    {
+        audioMixer.SetFloat("Master", Mathf.Log10(SfxSlider.value) * 20);
+    }
+
+
+
+
 
 }

@@ -116,7 +116,7 @@ public class Island_manager : MonoBehaviour
         Debug.Log("Game Reset");
     }
     
-    private float ChangePoint(float deltaPoint){
+    public  float ChangePoint(float deltaPoint){
         Points =Points+deltaPoint;
         GettingPointForNext = GettingPointForNext+deltaPoint;
 
