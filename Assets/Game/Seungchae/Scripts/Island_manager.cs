@@ -13,8 +13,8 @@ public class Island_manager : MonoBehaviour
     public bool useFixedUpdate;
     public float variableToChange;
     public float changePerSecond;
-    private float GettingPointForNext=0;
-    private float HasTimePassedEnough=0;
+    public float GettingPointForNext=0;
+    public float HasTimePassedEnough=0;
     
     
     // Game Objects that changes over time
@@ -27,12 +27,14 @@ public class Island_manager : MonoBehaviour
     //Point Mechanism (Time + How big + how many trees )
     public int HowBigTree; // basically level? 1 to 5?
     public int HowManyTrees; // 1~5? //Is it just go up same as howBigTree?
-    private int MaxTree = 10; // = 10 * Level or SizeOfIsland
+    public int MaxTree = 5; // = 5 * Level or SizeOfIsland
     
     public int SizeOfIsland; // 1 ~ 5, The more points, the bigger size // == HowManyTrees??
     private int Level=1;
     //SizeOfIsland = HowManyTrees = HowBigTree?
     
+    public GameObject[] TreeLocation;
+
     bool restart;
 
     void Awake() {
@@ -71,7 +73,7 @@ public class Island_manager : MonoBehaviour
         //     Debug.Log("Game Reset");
         // }
         
-       getDamaged(0.101f); // Just for debug
+       //getDamaged(0.101f); // Just for debug
 
        //if(merged island) ++Level;? ++SizeOfIsland?
        //SizeUpIsland();
@@ -94,7 +96,7 @@ public class Island_manager : MonoBehaviour
             if(HasTimePassedEnough>10) // every 10 second you will get a new tree until you meet the max
             {
                 HowManyTrees++;
-
+                GenerateNewTree();
                 HasTimePassedEnough = 0;
             }
         }
@@ -117,10 +119,11 @@ public class Island_manager : MonoBehaviour
         //When you get another 300 point, the next Island will show up.
         if(GettingPointForNext > 300){ 
             showupNextIsland();
+            SizeUpIsland(); // It should be deleted after testing.
             GettingPointForNext =0;
         }
         //Debug.Log("Point: "+Points.ToString());
-        SizeUpIsland();
+        //SizeUpIsland();
         return Points;
     }
 
@@ -139,7 +142,7 @@ public class Island_manager : MonoBehaviour
             Size 5: Merge 4
         */
         SizeOfIsland++;
-        MaxTree = 10 * SizeOfIsland;
+        MaxTree = 5 * SizeOfIsland;
         Debug.Log("SizeOfIsland: "+SizeOfIsland.ToString());
         Debug.Log("MaxTree: "+MaxTree.ToString());
 
@@ -149,6 +152,12 @@ public class Island_manager : MonoBehaviour
     {   
         // if you merge islands you will get level up.
         //
+        Debug.Log("showupNextIsland");
+
+    }
+
+    private void GenerateNewTree(){
+        Debug.Log("GenerateNewTree");
     }
 }
 
