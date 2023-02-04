@@ -165,7 +165,10 @@ public class Island_manager : MonoBehaviour
             //pref_smallTree.
             // Instantiate at position (0, 0, 0) and zero rotation.
             // Instantiate(pref_smallTree, new Vector3(0, 0, 0), Quaternion.identity);
-            GameObject newTree = Instantiate(pref_smallTree, TreeLocations[HowManyTrees-1].transform.position, Quaternion.identity) as GameObject; 
+            Vector3 currentEulerAngles = new Vector3(0, 0, 0);
+            Quaternion currentRotation  = Quaternion.identity;
+            currentRotation.eulerAngles = currentEulerAngles;
+            GameObject newTree = Instantiate(pref_smallTree, TreeLocations[HowManyTrees-1].transform.position, currentRotation) as GameObject; 
             newTree.transform.parent = GameObject.Find("Trees_new").transform;
 
             HowManyTrees++;
