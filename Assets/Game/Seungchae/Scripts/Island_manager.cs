@@ -19,6 +19,8 @@ public class Island_manager : MonoBehaviour
     
     // Game Objects that changes over time
     public GameObject Island_main;
+    public GameObject[] TreeLocations;
+    public GameObject pref_smallTree;
 
     // Changing values such as health, points
     public float Health;
@@ -33,7 +35,6 @@ public class Island_manager : MonoBehaviour
     private int Level=1;
     //SizeOfIsland = HowManyTrees = HowBigTree?
     
-    public GameObject[] TreeLocation;
 
     bool restart;
 
@@ -95,7 +96,7 @@ public class Island_manager : MonoBehaviour
             //Debug.Log("Time: "+((int)variableToChange).ToString());
             if(HasTimePassedEnough>10) // every 10 second you will get a new tree until you meet the max
             {
-                HowManyTrees++;
+                // HowManyTrees++;
                 GenerateNewTree();
                 HasTimePassedEnough = 0;
             }
@@ -158,6 +159,17 @@ public class Island_manager : MonoBehaviour
 
     private void GenerateNewTree(){
         Debug.Log("GenerateNewTree");
+
+        if(HowManyTrees < MaxTree)
+        {
+            //pref_smallTree.
+            // Instantiate at position (0, 0, 0) and zero rotation.
+            // Instantiate(pref_smallTree, new Vector3(0, 0, 0), Quaternion.identity);
+            GameObject newTree = Instantiate(pref_smallTree, TreeLocations[HowManyTrees-1].transform.position, Quaternion.identity) as GameObject; 
+            newTree.transform.parent = GameObject.Find("Trees_new").transform;
+
+            HowManyTrees++;
+        }
     }
 }
 
