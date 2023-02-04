@@ -1,44 +1,69 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class IslandController : MonoBehaviour
 {
-    private CharacterController controller;
-    private Vector3 playerVelocity;
-    private bool groundedPlayer;
-    private float playerSpeed = 2.0f;
-    private float jumpHeight = 1.0f;
-    //private float gravityValue = -9.81f;
+    [SerializeField]
+    private float acceleration = 10f;
+
+    [SerializeField]
+    private float deceleration = 20f;
+    
+    [SerializeField]
+    private float angularAcceleration = 5f;
+    
+    [SerializeField]
+    private float angularDeceleration = 0.5f;
+
+    [SerializeField]
+    private float maxSpeed = 20f;
+
+    [SerializeField]
+    private float maxAngularSpeed = 2f;
+
+    private Rigidbody _rigidbody;
 
     private void Start()
     {
-        controller = gameObject.AddComponent<CharacterController>();
+        _rigidbody = GetComponent<Rigidbody>();
     }
 
-    void Update()
+    private void Update()
     {
-        groundedPlayer = true; //controller.isGrounded;
-        if (groundedPlayer && playerVelocity.y < 0)
+        Vector3 targetDirection = new (Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        if (targetDirection.sqrMagnitude < 3e-5 && Input.GetButton("Fire1"))
         {
-            playerVelocity.y = 0f;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out RaycastHit hit, 500, 1 << LayerMask.NameToLayer("Plane"))) {
+                Vector3 target = hit.point;
+                target.y = transform.position.y;
+                targetDirection = (target - transform.position).normalized;
+            }
         }
 
-        Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        controller.Move(move * Time.deltaTime * playerSpeed);
+        if (targetDirection.sqrMagnitude < 3e-5)
+            return;
 
-        if (move != Vector3.zero)
-        {
-            gameObject.transform.forward = move;
-        }
+        Vector3 velocity = _rigidbody.velocity;
+        if (velocity.sqrMagnitude < 3e-5)
+            velocity = targetDirection;
+        float currentSpeed = velocity.magnitude;
+        Vector3 currentDirection = velocity / currentSpeed;
 
-        // Changes the height position of the player..
-        // if (Input.GetButtonDown("Jump") && groundedPlayer)
-        // {
-        //     playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
-        // }
+        if (currentSpeed > maxSpeed)
+            _rigidbody.velocity = currentDirection * maxSpeed;
+        
+        if (_rigidbody.angularVelocity.sqrMagnitude > maxAngularSpeed * maxAngularSpeed)
+            _rigidbody.angularVelocity = _rigidbody.angularVelocity.normalized * maxAngularSpeed;
 
-        //playerVelocity.y += gravityValue * Time.deltaTime;
-        controller.Move(playerVelocity * Time.deltaTime);
+        if (Vector3.Dot(currentDirection, targetDirection) < 0)
+            _rigidbody.AddForce(targetDirection * deceleration, ForceMode.Acceleration);
+        else
+            _rigidbody.AddForce(targetDirection * acceleration, ForceMode.Acceleration);
+
+        Vector3 rotationalDirection = Vector3.Cross(currentDirection, targetDirection);
+        if (Vector3.Dot(_rigidbody.angularVelocity, rotationalDirection) < 0f)
+            _rigidbody.AddTorque(Vector3.Cross(currentDirection, targetDirection) * angularDeceleration, ForceMode.Acceleration);
+        else
+            _rigidbody.AddTorque(Vector3.Cross(currentDirection, targetDirection) * angularAcceleration, ForceMode.Acceleration);
     }
 }

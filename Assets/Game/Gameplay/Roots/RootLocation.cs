@@ -1,10 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Game.Gameplay.Roots
 {
     public class RootLocation : MonoBehaviour
     {
+        public event Action<Root> OnAttached;
+        public event Action<Root> OnDetached;
+
         [SerializeField, Min(0)]
         private float growthInterval = 10f;
 
@@ -13,7 +17,9 @@ namespace Game.Gameplay.Roots
 
         private Root _currentRoot;
 
-        private void Start ()
+        public Root Root => _currentRoot;
+
+        private void Awake ()
         {
             Grow(rootStages[0]);
         }
@@ -23,6 +29,9 @@ namespace Game.Gameplay.Roots
             float attachMoment = 0;
             Root otherRoot = null;
             if (_currentRoot != null) {
+                _currentRoot.OnAttached -= SignalAttached;
+                _currentRoot.OnDetached -= SignalDetached;
+
                 if (_currentRoot.Attached) {
                     attachMoment = _currentRoot.AttachmentStartMoment;
                     otherRoot = _currentRoot.Detach();
@@ -35,6 +44,19 @@ namespace Game.Gameplay.Roots
 
             if (otherRoot != null)
                 _currentRoot.Attach(otherRoot, attachMoment);
+
+            _currentRoot.OnAttached += SignalAttached;
+            _currentRoot.OnDetached += SignalDetached;
+        }
+        
+        private void SignalAttached (Root root)
+        {
+            OnAttached?.Invoke(root);
+        }
+
+        private void SignalDetached (Root root)
+        {
+            OnDetached?.Invoke(root);
         }
     }
 }
