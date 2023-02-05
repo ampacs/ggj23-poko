@@ -53,6 +53,15 @@ namespace Game.Gameplay.Islands
             }
         }
 
+        private void OnDestroy ()
+        {
+            foreach (RootLocation rootLocation in _rootLocations) {
+                if (rootLocation.Root != null && rootLocation.Root.Attached)
+                    rootLocation.Root.Detach();
+                rootLocation.enabled = false;
+            }
+        }
+
         private void FixedUpdate ()
         {
             if (Rigidbody.angularVelocity.sqrMagnitude > maximumAngularSpeed * maximumAngularSpeed)

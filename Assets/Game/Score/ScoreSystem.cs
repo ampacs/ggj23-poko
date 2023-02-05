@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 using Zenject;
 
 namespace Game.Score
@@ -14,7 +15,12 @@ namespace Game.Score
 
         public override void InstallBindings()
         {
-            Container.Bind<ScoreSystem>().FromInstance(this).AsSingle();
+            Container.Bind<ScoreSystem>().FromInstance(this).AsSingle().NonLazy();
+        }
+
+        public override void Start()
+        {
+            HighScore = PlayerPrefs.GetFloat("HighScore", 0);
         }
 
         public void AddScore(float score)
@@ -30,6 +36,10 @@ namespace Game.Score
         {
             if (Score > HighScore) {
                 HighScore = Score;
+
+                PlayerPrefs.SetFloat("HighScore", HighScore);
+                PlayerPrefs.Save();
+
                 OnHighscoreUpdated?.Invoke(Score);
             }
 

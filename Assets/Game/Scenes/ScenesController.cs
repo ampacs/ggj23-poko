@@ -11,6 +11,9 @@ namespace Game.Scenes
     {
         public delegate UniTask LoadAction(Scene scene, CancellationToken token);
         public delegate UniTask ProgressAction (Scene scene, float progress, CancellationToken token);
+        
+        [Inject]
+        private ZenjectSceneLoader _sceneLoader;
 
         [SerializeField]
         private SceneContainer startingScene;
@@ -22,9 +25,15 @@ namespace Game.Scenes
         private readonly List<ProgressAction> _onSceneLoadUpdateActions = new();
         private readonly List<LoadAction> _onSceneLoadFinishActions = new();
 
+        public override void Start ()
+        {
+            if (startingScene != null)
+                LoadScene(startingScene).Forget();
+        }
+        
         public override void InstallBindings ()
         {
-            Container.Bind<ScenesController>().FromInstance(this).AsSingle();
+            Container.Bind<ScenesController>().FromInstance(this).AsSingle().NonLazy();
         }
 
         public void AddOnSceneLoadStartAction (LoadAction action)
@@ -90,7 +99,7 @@ namespace Game.Scenes
                 }
             }
 
-            AsyncOperation operation = SceneManager.LoadSceneAsync(scene.MainScene.BuildIndex, LoadSceneMode.Single);
+            AsyncOperation operation = _sceneLoader.LoadSceneAsync(scene.MainScene.BuildIndex);
             operation.allowSceneActivation = false;
 
             float previousProgress;

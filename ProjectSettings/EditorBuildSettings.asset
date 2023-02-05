@@ -6,12 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Game/Scenes/SampleScene.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
+    path: Assets/Game/Scenes/Game.unity
+    guid: dc13dd7f0b390984cb91366fe40870b7
   - enabled: 1
-    path: Assets/Game/andre/StartScene.unity
-    guid: cdfeddd261acb0643a1e4b8a985805f1
+    path: Assets/Game/Scenes/MainMenu/MainMenu.unity
+    guid: 674c92c541c5b1942a36085fb04123fa
   - enabled: 1
-    path: Assets/Game/andre/EndScene.unity
-    guid: 7ec7ab44f75fde14ebd83266ea93c509
+    path: Assets/Game/Scenes/Game/GameScene.unity
+    guid: e6715a492e61ec044824452d464ba507
   m_configObjects: {}

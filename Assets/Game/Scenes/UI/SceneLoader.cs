@@ -32,6 +32,8 @@ namespace Game.Scenes.UI
 
         private void LoadScene ()
         {
+            if (_scenesController == null)
+                _scenesController = FindObjectOfType<ScenesController>();
             _scenesController.LoadScene(scene).Forget();
         }
     }
