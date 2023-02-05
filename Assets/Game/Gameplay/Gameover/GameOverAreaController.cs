@@ -23,6 +23,11 @@ namespace Game.Gameplay.Gameover
         //[Inject]
         public SoundManager _soundManager;
 
+        public void Start()
+        {
+           _soundManager.GetComponent<SoundManager>();
+        }
+
         private void OnTriggerEnter (Collider other)
         {
             if (!other.TryGetComponent(out Island island) || !island.IsPlayerIsland)

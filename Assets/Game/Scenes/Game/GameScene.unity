@@ -288,7 +288,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: d85e57806fa545c4a9168d3f540f4dcc, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -477,7 +477,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: d85e57806fa545c4a9168d3f540f4dcc, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -673,7 +673,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 39babd7c24c5de2409f13bcaeb916084, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -1031,7 +1031,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 246e691d41a1a20419268c43d2abf41a, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -2088,12 +2088,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d275d7d78e5a4fab9677d68f49fc52c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayingSound: {fileID: 0}
-  EndingSound: {fileID: 0}
-  DeadSound: {fileID: 0}
-  WindStormSound: {fileID: 0}
-  MergingSound: {fileID: 0}
   gameOverPanel: {fileID: 791186190}
+  _soundManager: {fileID: 1723091966}
 --- !u!4 &1280816936
 Transform:
   m_ObjectHideFlags: 0
@@ -2260,7 +2256,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: cff267bcc2d482e4187df2da4d758350, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -2735,11 +2731,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c2a8f89a380b084382b9f68e512cb65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SoundPlayer: {fileID: 0}
   PlayingSound: {fileID: 1592251992}
   EndingSound: {fileID: 1956883298}
   DeadSound: {fileID: 416142657}
   WindStormSound: {fileID: 757340781}
   MergingSound: {fileID: 298280256}
+  PlayingSound_AC: {fileID: 0}
+  EndingSound_AC: {fileID: 0}
+  DeadSound_AC: {fileID: 0}
+  WindStormSound_AC: {fileID: 0}
+  MergingSound_AC: {fileID: 0}
 --- !u!1001 &1799443055
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3234,7 +3236,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: b283dd875bae63e409440760b4c3ee20, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

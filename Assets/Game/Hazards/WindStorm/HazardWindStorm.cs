@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using Game.Gameplay;
 
 namespace Game.Hazards.WindStorm
 {
@@ -19,6 +20,11 @@ namespace Game.Hazards.WindStorm
 
         private Transform _transform;
         private Rigidbody _rigidbody;
+        
+
+        public GameObject _soundManager;
+        private bool Playing;
+        
 
         public void Spawn (Vector3 targetPosition)
         {
@@ -33,8 +39,14 @@ namespace Game.Hazards.WindStorm
         {
             _transform = transform;
             _rigidbody = GetComponent<Rigidbody>();
-
+           
             enabled = false;
+        }
+
+        private void Start()
+        {
+            _soundManager = GameObject.Find("BGM");
+            
         }
 
         private void FixedUpdate ()
@@ -45,6 +57,14 @@ namespace Game.Hazards.WindStorm
                 OnCompleted?.Invoke(this);
                 enabled = false;
             }
+
+            // if(Mathf.Abs(_transform.position - gameObject.transform.position) < 1f)
+            if(Vector3.Distance(_transform.position, gameObject.transform.position)<1f && !Playing)
+            {
+                _soundManager.GetComponent<SoundManager>().Play_WindSound();
+                Playing = true;
+            }
+            
         }
 
         // TODO: add handling of colliding with roots and trees

@@ -16,14 +16,6 @@ namespace Game.Gameplay
         public AudioSource WindStormSound; 
         public AudioSource MergingSound; 
 
-        [SerializeField]
-        public AudioClip PlayingSound_AC; 
-        public AudioClip EndingSound_AC; 
-        public AudioClip DeadSound_AC; 
-        public AudioClip WindStormSound_AC; 
-        public AudioClip MergingSound_AC; 
-
-       
         // public event Action<float> OnScoreUpdated; 
         // public event Action<float> OnHighscoreUpdated; 
 
@@ -51,6 +43,7 @@ namespace Game.Gameplay
 
         public void Play_WindSound()
         {
+            Debug.Log("Wind~~");
             WindStormSound.Play();
         }
 
