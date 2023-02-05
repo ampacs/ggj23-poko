@@ -1,6 +1,8 @@
 using System;
 using UnityEngine;
 using Zenject;
+using System.Collections; // ①
+
 
 namespace Game.Gameplay
 {
@@ -32,10 +34,16 @@ namespace Game.Gameplay
         // {
 
         // }
-
         public void Play_DeadSound()
         {
           DeadSound.Play();
+          PlayingSound.volume = 0.2f;
+          StartCoroutine(Dead());
+        }
+
+        
+        public void Play_EndingSound()
+        {
           PlayingSound.Stop();
           EndingSound.Play();
           EndingSound.loop = true;
@@ -50,6 +58,12 @@ namespace Game.Gameplay
         public void Play_MergingSound()
         {
             MergingSound.Play();
+        }
+
+        IEnumerator Dead() {
+            {
+               yield return new WaitForSeconds( 3.0f );
+            }
         }
     }
 }

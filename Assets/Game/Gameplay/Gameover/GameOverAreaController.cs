@@ -34,6 +34,9 @@ namespace Game.Gameplay.Gameover
                 return;
 
             _soundManager.Play_DeadSound();
+
+            _soundManager.Play_EndingSound();
+
             gameOverPanel.Show();
             Destroy(island.gameObject);
 
